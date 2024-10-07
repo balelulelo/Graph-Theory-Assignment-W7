@@ -11,8 +11,8 @@ Members:
 
 # Code Explanation
 
-## Travelling Salesman Problem (TSP)
+## A. Travelling Salesman Problem (TSP)
 
-## Chinese Postman Problem (CPP)
+## B. Chinese Postman Problem (CPP)
 
-## Knights Tours
+## C. Knights Tours
