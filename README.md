@@ -1,5 +1,6 @@
-The repository for Graph Theory IUP week 7 Assignment that consist of:
+# Graph Theory W7 Assignment - Group 1
 
+Members:
 
 | Name  | NRP |
 | ------------- | ------------- |
@@ -8,3 +9,10 @@ The repository for Graph Theory IUP week 7 Assignment that consist of:
 | Muhammad Iqbal Shafarel    | 5025231080 |
 | Ali Ridho   | 5025231162|
 
+# Code Explanation
+
+## Travelling Salesman Problem (TSP)
+
+## Chinese Postman Problem (CPP)
+
+## Knights Tours
