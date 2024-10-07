@@ -179,7 +179,7 @@ after we run the code, the image below is the output of the code:
 
 ## B. Chinese Postman Problem (CPP)
 
-## C. Knights Tours
+## C. Knight's Tour
 
 ### Solution Overview
 
