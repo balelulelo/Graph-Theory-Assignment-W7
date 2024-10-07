@@ -182,7 +182,7 @@ after we run the code, the image below is the output of the code:
 
 
 ## 2. Chinese Postman Problem (CPP)
-### A.Header
+### A. Header
 ```
 #include <bits/stdc++.h>
 using namespace std;
@@ -193,7 +193,7 @@ using namespace std;
 - `INF` to make sure for max interval of the path cost.
 
 
-### B.Initialize variable
+### B. Initialize variable
 ```
 int n, m; 
 long long totalCost = 0; 
@@ -205,7 +205,7 @@ vector<int> bestPath;
 - Using two-dimensional  adjency matrix for the graph.
 - Initialize `oddpath` and `bestPath` with vector due to graph with matrix type.
 
-### C.Initializing Graph
+### C. Initializing Graph
 ```
 void initializeGraph()
 {
@@ -234,7 +234,7 @@ Set Distances:
 adj[i][j] = INF;`: Sets the distance between different nodes to infinity (indicating no direct connection).
 - `cout << "Graph initialized.\n";`: indicating the graph has been successfully initialized.
 
-### D.Read the edges
+### D. Read the edges
 ```
 void readEdges()
 {
@@ -267,7 +267,7 @@ void readEdges()
 Output Edge Information:
 - `cout << "Edge added: " << edgeId << " from " << x+1 << " to " << y+1 << " with cost " << cost << "\n";`: Outputs showing the edge ID, the nodes it connects (converted back to 1-based indexing), and the cost of the edge.
 
-### E.Using floydWarshall Algortihm to find the minimum cost
+### E. Using floydWarshall Algortihm to find the minimum cost
 ```
     for (int k = 0; k < n; k++){
         for (int i = 0; i < n; i++){
@@ -283,7 +283,7 @@ Output Edge Information:
 - The algorithm works by iteratively improving the path distances between pairs of nodes through intermediate nodes.
 - For every possible intermediate node, it checks whether the path from node `i`to node `j` can be shortened by going through that intermediate node `k`. If the path through `k` is shorter, the algorithm updates the distance.
 
-### F.Identify Odd Degree
+### F. Identify Odd Degree
 ```
 void findOddDegreeNodes()
 {
@@ -297,7 +297,7 @@ void findOddDegreeNodes()
 ```
 - Identify nodes that have an odd degree in the graph. In the context of graph theory, a node with an odd degree is important when determining Eulerian paths (paths that traverse every edge exactly once).
 
-### G.Finding Mini Cost Function
+### G. Finding Mini Cost Function
 ```
 long long findMinCost(const vector<bool> &mask, long long dist[MAX_NODES][MAX_NODES], vector<int> &path) 
 {
@@ -347,7 +347,7 @@ long long findMinCost(const vector<bool> &mask, long long dist[MAX_NODES][MAX_NO
 - The cost for this particular pairing is calculated by adding the distance between `firstNode` and `secondNode` `(dist[firstNode][secondNode])` to the cost returned by a recursive call to findMinCost with the updated mask (newMask).
 - If the calculated `newCost` is less than the current `minCost`, it updates `minCost` and adds `firstNode` and `secondNode` to the path vector. A message is printed to indicate the nodes that have been paired and the associated cost.
 - 
-### H.Main Function
+### H. Main Function
 ```
 int main() 
 {
@@ -398,7 +398,7 @@ Calls the findMinCost function to calculate the minimum cost of pairing the odd-
 - `cout << "Minimum Cost: " << minCost << "\n";`
 Outputs the calculated minimum cost to the console.
 
-### Results
+### I. Results
 ![image](https://github.com/user-attachments/assets/d81ac070-a82d-4ca6-b3ac-dd9b342d3e33)
 
 ## 3. Knight's Tour
