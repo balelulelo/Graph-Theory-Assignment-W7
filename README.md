@@ -180,3 +180,119 @@ after we run the code, the image below is the output of the code:
 ## B. Chinese Postman Problem (CPP)
 
 ## C. Knights Tours
+
+### Solution Overview
+
+This solution aims to solve the Knight's Tour problem using a backtracking approach with a predefined set of moves in an anticlockwise pattern. The goal is to visit every square on the chessboard exactly once using the knight's legal moves.
+
+### Valid Move
+
+```
+def is_valid(x, y, n, m, visited):
+    return 0 <= x < n and 0 <= y < m and not visited[x][y]
+
+```
+This part is a function to check if a move is valid and within the boundary of the board.
+
+The parameters are as follows:
+* `x, y` = the coordinate for next move
+* `n` = rows
+* `m` = columns
+* `visited` = A matrix to track if a cell is already visited
+
+### Create Graph
+
+```
+def create_custom_graph(n, m):
+    custom_moves = [(2, -1), (1, -2), (-1, -2), (-2, -1), (-2, 1), (-1, 2), (1, 2), (2, 1)]
+    graph = {}
+
+    for i in range(n):
+        for j in range(m):
+            neighbors = []
+            for move in custom_moves:
+                new_x, new_y = i + move[0], j + move[1]
+                if 0 <= new_x < n and 0 <= new_y < m:
+                    neighbors.append((new_x, new_y))
+            graph[(i, j)] = neighbors
+
+    return graph
+```
+
+In this part, the function builds a graph where each position is a node, and the neighbors are the possible moves. For each cell on the board, the function checks if moving to a neighboring cell using any of the knight's moves is valid. If valid, that neighboring cell is added to the node’s neighbors.
+
+The purpose is to precompute all valid moves from each square and organize them into a graph structure, allowing efficient traversal during backtracking.
+
+### Knight Tour Graph
+
+```
+def knight_tour_graph(n, m, start_x, start_y, graph, visited, path, move_count):
+    if move_count == n * m:  
+        return True
+
+    for neighbor in graph[(start_x, start_y)]:
+        new_x, new_y = neighbor
+        if is_valid(new_x, new_y, n, m, visited):
+
+            visited[new_x][new_y] = True
+            path.append((new_x, new_y))
+
+            if knight_tour_graph(n, m, new_x, new_y, graph, visited, path, move_count + 1):
+                return True
+
+            visited[new_x][new_y] = False
+            path.pop()
+
+    return False
+```
+This part is a recursive backtracking function that attempts to find a path where the knight visits every square on the board exactly once. It tries each valid move from the current square (from the graph) in the anticlockwise order.
+
+For each valid move, it will:
+* Marks the square as visited.
+* Adds it to the path.
+* Recursively calls itself to continue the tour from the new square.
+* If a solution is found (all squares are visited), the function returns True. Otherwise, it backtracks by unmarking the square and trying other possible moves.
+
+The purpose is to explore all possible knight paths, making decisions recursively and backtracking when needed until a solution is found.
+
+### Solve Knight Tour
+
+```
+def solve_knight_tour_custom(n, m, start_x, start_y):
+    graph = create_custom_graph(n, m)
+
+    visited = [[False for _ in range(m)] for _ in range(n)]
+    path = [(start_x, start_y)]
+    visited[start_x][start_y] = True
+
+    if knight_tour_graph(n, m, start_x, start_y, graph, visited, path, 1):
+
+        for coord in path:
+            print(coord)
+    else:
+        print("No solution exists")
+```
+
+In this part, it initialize the process by creating a graph and setting up the visited array.
+it will call `knight_tour_graph` to start the tour from the given starting position `(start_x, start_y)`.
+If the knight successfully visits all squares, it prints the resulting path. Otherwise, it prints `"No solution exists"`.
+
+The purpose is to be the driver function that sets up the chessboard, the knight's starting position, and initiates the recursive backtracking process.
+
+### Main Function
+
+```
+n, m = 5, 5  
+start_x, start_y = 2, 2  
+
+solve_knight_tour_custom(n, m, start_x, start_y)
+```
+
+this part acts as a main function. It sets the dimension of the board to `5 x 5` and the starting position to `2 x 2`. It will then call `solve_knight_tour_custom` to calculate the result of this code
+
+### Result
+
+after we run the code, the following image is the output result:
+
+![image](https://github.com/user-attachments/assets/741a3b22-e619-454f-85fc-de7cb6b17d56)
+
