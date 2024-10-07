@@ -13,6 +13,10 @@ Members:
 
 ## 1. Travelling Salesman Problem (TSP)
 
+### Solution Overview
+
+The solution for this code implements a greedy algorithm for solving the Traveling Salesman Problem (TSP). It builds a graph based on input edges and calculates the route that visits each node exactly once. 
+
 ### A. Headers
 
 ```
