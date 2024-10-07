@@ -11,9 +11,9 @@ Members:
 
 # Code Explanation
 
-## A. Travelling Salesman Problem (TSP)
+## 1. Travelling Salesman Problem (TSP)
 
-### Headers
+### A. Headers
 
 ```
 #include <iostream>
@@ -32,7 +32,7 @@ These are the headers we used in this code:
 * `#include <algorithm>` = using various algorithm (in this case = reverse)
 * `using namespace std;` = removing the `std::` prefix
 
-### Constant and Struct Definitions
+### B. Constant and Struct Definitions
 
 ```
 const int INF = numeric_limits<int>::max();
@@ -46,7 +46,7 @@ struct Edge {
 * `INF` = represents a very large number to initialize the adj matrix
 * `struct Edge` = A structure to hold the info about an edge in the graph including the edge identifier `id`, one end point and the other `u` and `v`, and the cost of the edge `weight`.
 
-### TSP Solver Function
+### C. TSP Solver Function
 
 ```
 int solveTSP(int n, int m, const vector<Edge>& edges, int startNode) {
@@ -67,7 +67,7 @@ This part initializes the Data Structure for this code
 * `edgeRoute` = store the sequences of `id` in order
 * `totalCost` = accumulate the total cost
 
-### Build the Matrix
+### D. Build the Matrix
 
 ```
     for (const auto& e : edges) {
@@ -80,7 +80,7 @@ This part initializes the Data Structure for this code
 ```
 In this part, the loop iterates over each edge in the `edges` vector. It will set the weight of both direction in `adjMatrix`, and it will set the edge ID for both directions.
 
-### TSP Logic
+### E. TSP Logic
 
 ```
     vector<bool> visited(n + 1, false);
@@ -90,7 +90,7 @@ In this part, the loop iterates over each edge in the `edges` vector. It will se
 ```
 In this part, a boolean vector will track which node have been visited and mark the starting node as visited. It will also keep track of the current node with `currentNode`.
 
-### Find the Next Node
+### F. Find the Next Node
 
 ```
  for (int count = 1; count < n; ++count) {
@@ -120,7 +120,7 @@ In this part, the steps are:
 
 The accumulated minimum cost will be added to `totalCost`, and the ID of the edge will be added to `edgeRoute`.
 
-### Completing the Route
+### G. Completing the Route
 
 ```
     totalCost += adjMatrix[currentNode][startNode];
@@ -145,7 +145,7 @@ In this part, the cost to return to starting node is added to the total cost and
 after that part, the `totalCost` is printed, and the `edgeRoute` is reversed to display the correct order of the traversal
 
 
-### Main Function
+### H. Main Function
 
 ```
 int main() {
@@ -170,22 +170,22 @@ In the main function, it handles the input such as:
 
 after reading the inputs, it will call the `solveTSP` function to calculate the cost and the route
 
-### Result
+### I. Result
 
 after we run the code, the image below is the output of the code:
 
 ![image](https://github.com/user-attachments/assets/269b959f-530f-4471-a8bd-a38669c91466)
 
 
-## B. Chinese Postman Problem (CPP)
+## 2. Chinese Postman Problem (CPP)
 
-## C. Knight's Tour
+## 3. Knight's Tour
 
 ### Solution Overview
 
 This solution aims to solve the Knight's Tour problem using a backtracking approach with a predefined set of moves in an anticlockwise pattern. The goal is to visit every square on the chessboard exactly once using the knight's legal moves.
 
-### Valid Move
+### A. Valid Move
 
 ```
 def is_valid(x, y, n, m, visited):
@@ -200,7 +200,7 @@ The parameters are as follows:
 * `m` = columns
 * `visited` = A matrix to track if a cell is already visited
 
-### Create Graph
+### B. Create Graph
 
 ```
 def create_custom_graph(n, m):
@@ -223,7 +223,7 @@ In this part, the function builds a graph where each position is a node, and the
 
 The purpose is to precompute all valid moves from each square and organize them into a graph structure, allowing efficient traversal during backtracking.
 
-### Knight Tour Graph
+### C. Knight Tour Graph
 
 ```
 def knight_tour_graph(n, m, start_x, start_y, graph, visited, path, move_count):
@@ -255,7 +255,7 @@ For each valid move, it will:
 
 The purpose is to explore all possible knight paths, making decisions recursively and backtracking when needed until a solution is found.
 
-### Solve Knight Tour
+### D. Solve Knight Tour
 
 ```
 def solve_knight_tour_custom(n, m, start_x, start_y):
@@ -279,7 +279,7 @@ If the knight successfully visits all squares, it prints the resulting path. Oth
 
 The purpose is to be the driver function that sets up the chessboard, the knight's starting position, and initiates the recursive backtracking process.
 
-### Main Function
+### E. Main Function
 
 ```
 n, m = 5, 5  
@@ -290,7 +290,7 @@ solve_knight_tour_custom(n, m, start_x, start_y)
 
 this part acts as a main function. It sets the dimension of the board to `5 x 5` and the starting position to `2 x 2`. It will then call `solve_knight_tour_custom` to calculate the result of this code
 
-### Result
+### F. Result
 
 after we run the code, the following image is the output result:
 
