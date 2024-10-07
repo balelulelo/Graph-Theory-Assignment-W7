@@ -182,6 +182,221 @@ after we run the code, the image below is the output of the code:
 
 
 ## 2. Chinese Postman Problem (CPP)
+### Header
+```
+#include <bits/stdc++.h>
+using namespace std;
+#define MAX_NODES 16
+#define INF LLONG_MAX
+```
+- Define for max interval of nodes (16).
+- `INF` to make sure for max interval of the path cost.
+
+
+### Initialize variable
+```
+int n, m; 
+long long totalCost = 0; 
+long long adj[MAX_NODES][MAX_NODES]; 
+int degree[MAX_NODES]; 
+vector<int> oddDegreeNodes; 
+vector<int> bestPath; 
+```
+- Using two-dimensional  adjency matrix for the graph.
+- Initialize `oddpath` and `bestPath` with vector due to graph with matrix type.
+
+### Initializing Graph
+```
+void initializeGraph()
+{
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++){
+            if (i == j){
+                adj[i][j] = 0; 
+            } 
+            else{
+                adj[i][j] = INF; 
+            }
+        }
+        degree[i] = 0; 
+    }
+    cout << "Graph initialized.\n";
+}
+```
+- Function Declaration: void initializeGraph(): Declares a function that returns no value.
+Outer Loop (Node Iteration):
+- `for (int i = 0; i < n; i++)`: Iterates over each node in the graph, where n is the total number of nodes.
+- `for (int j = 0; j < n; j++)`: Iterates through all nodes again for each node i.
+Set Distances:
+- if `(i == j):` Checks if the current node (i) is the same as the node being compared (j).
+- `adj[i][j] = 0;`: Sets the distance from a node to itself to 0.
+- `else: If the nodes are different:
+adj[i][j] = INF;`: Sets the distance between different nodes to infinity (indicating no direct connection).
+- `cout << "Graph initialized.\n";`: indicating the graph has been successfully initialized.
+
+### Read the edges
+```
+void readEdges()
+{
+    for (int i = 0; i < m; i++){
+        int edgeId, x, y;
+        long long cost; 
+        cin >> edgeId >> x >> y >> cost; 
+        x--; y--; 
+        adj[x][y] = min(adj[x][y], cost); 
+        adj[y][x] = min(adj[y][x], cost);
+        totalCost += cost; 
+        degree[x]++;
+        degree[y]++;
+        cout << "Edge added: " << edgeId << " from " << x+1 << " to " << y+1 << " with cost " << cost << "\n";
+    }
+    cout << "Total cost of edges: " << totalCost << "\n";
+}
+```
+- `void readEdges():` Declares a function that returns no value.
+- `for (int i = 0; i < m; i++):` Iterates m times, where m is the total number of edges to be read.
+- `int edgeId, x, y;`: Declares variables to store the edge identifier and the two nodes that the edge connects.
+- `long long cost;`: Declares a variable to store the cost of the edge.
+- `cin >> edgeId >> x >> y >> cost;`: Reads the edge identifier, two nodes (x and y), and the cost from standard input.
+- `x--; y--;`: Decrements x and y by 1 to convert the input from 1-based indexing (common in user input) to 0-based indexing (used in programming).
+- `adj[x][y] = min(adj[x][y], cost);`: Updates the adjacency matrix at position [x][y] with the minimum cost between the existing cost and the new cost.
+- `adj[y][x] = min(adj[y][x], cost);`: Similarly updates the adjacency matrix at position `[y][x]` to ensure the graph remains undirected.
+- `totalCost += cost;`: Adds the cost of the current edge to the totalCost variable, which keeps track of the total cost of all edges.
+- `degree[x]++;`: Increases the degree of node x by 1 to indicate that an edge is connected to it.
+- `degree[y]++;`: Increases the degree of node y by 1.
+Output Edge Information:
+- `cout << "Edge added: " << edgeId << " from " << x+1 << " to " << y+1 << " with cost " << cost << "\n";`: Outputs showing the edge ID, the nodes it connects (converted back to 1-based indexing), and the cost of the edge.
+
+### Using floydWarshall Algortihm to find the minimum cost
+```
+    for (int k = 0; k < n; k++){
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < n; j++){
+                if (dist[i][j] > dist[i][k] + dist[k][j]){
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                    cout << "Updated distance from " << i+1 << " to " << j+1 << " via " << k+1 << " to " << dist[i][j] << "\n";
+                }
+            }
+        }
+    }
+```
+- The algorithm works by iteratively improving the path distances between pairs of nodes through intermediate nodes.
+- For every possible intermediate node, it checks whether the path from node `i`to node `j` can be shortened by going through that intermediate node `k`. If the path through `k` is shorter, the algorithm updates the distance.
+
+### Identify Odd Degree
+```
+void findOddDegreeNodes()
+{
+    for (int i = 0; i < n; i++){
+        if (degree[i] % 2 == 1){
+            oddDegreeNodes.push_back(i); 
+            cout << "Odd degree node found: " << i+1 << "\n";
+        }
+    }
+}
+```
+- Identify nodes that have an odd degree in the graph. In the context of graph theory, a node with an odd degree is important when determining Eulerian paths (paths that traverse every edge exactly once).
+
+### Finding Mini Cost Function
+```
+long long findMinCost(const vector<bool> &mask, long long dist[MAX_NODES][MAX_NODES], vector<int> &path) 
+{
+    bool allNodesRemoved = true;
+    for (bool inMask : mask) {
+        if (inMask){
+            allNodesRemoved = false; 
+            break; 
+        }
+    }
+    if (allNodesRemoved) return 0; 
+
+    long long minCost = INF; 
+    int firstNode = -1;
+
+    for (int i = 0; i < n; i++){
+        if (mask[i]){ 
+            firstNode = i; 
+            break; 
+        }
+    }
+
+    for (int secondNode = firstNode + 1; secondNode < n; secondNode++){
+        if (mask[secondNode]){ 
+            vector<bool> newMask = mask;
+            newMask[firstNode] = false; 
+            newMask[secondNode] = false; 
+
+            long long newCost = dist[firstNode][secondNode] + 
+                                findMinCost(newMask, dist, path);
+
+            if (newCost < minCost){
+                minCost = newCost; 
+                path.push_back(firstNode); 
+                path.push_back(secondNode); 
+                cout << "Pairing nodes: " << firstNode + 1 << " and " << secondNode + 1 << " with cost: " << newCost << "\n";
+            }
+        }
+    }
+
+    return minCost; 
+}
+```
+- This loop identifies the first node that is still available (not paired). It updates firstNode to the index of this node.
+- This nested loop attempts to pair firstNode with every other available node `(secondNode)` that comes after it in the list.
+- A copy of vector is created as `newMask`, and both `firstNode` and `secondNode` are marked as unavailable by setting their corresponding values to false.
+- The cost for this particular pairing is calculated by adding the distance between `firstNode` and `secondNode` `(dist[firstNode][secondNode])` to the cost returned by a recursive call to findMinCost with the updated mask (newMask).
+- If the calculated `newCost` is less than the current `minCost`, it updates `minCost` and adds `firstNode` and `secondNode` to the path vector. A message is printed to indicate the nodes that have been paired and the associated cost.
+- 
+### Main Function
+```
+int main() 
+{
+    cin >> n >> m; 
+    initializeGraph(); 
+    readEdges(); 
+
+    long long dist[MAX_NODES][MAX_NODES];
+    floydWarshall(dist); 
+
+    findOddDegreeNodes(); 
+
+    vector<bool> mask(n, false);
+    for (int node : oddDegreeNodes){
+        mask[node] = true; 
+    }
+
+    int startingPoint;
+    cin >> startingPoint; 
+    startingPoint--; 
+
+    vector<int> path;
+
+    long long minCost = totalCost+findMinCost(mask, dist, path); 
+
+    cout << "Minimum Cost: " << minCost << "\n";
+    return 0; 
+}
+```
+- `initializeGraph();`
+Calls the initializeGraph function
+- `readEdges();`calls the readEdges function to read the edge data and update the adjacency matrix with edge costs 
+- `long long dist[MAX_NODES][MAX_NODES];`
+Declares a 2D array dist to store shortest distances between nodes.
+`floydWarshall(dist);`calls the *floydWarshall* function to compute the shortest paths between all pairs of nodes and populate the dist array.
+- `findOddDegreeNodes();`
+Calls the findOddDegreeNodes function to identify and store nodes with odd degrees.
+- `vector<bool> mask(n, false);`
+Initializes a boolean vector mask of size n, where all values are set to false.`for (int node : oddDegreeNodes){ mask[node] = true; }`Iterates through the oddDegreeNodes vector and sets the corresponding indices in the mask vector to true, marking these nodes as available for pairing.
+- `int startingPoint;`
+Declares an integer variable to store the starting node for traversal.`cin >> startingPoint;`
+Reads the starting point from the user.`startingPoint--;`
+Decreases the value of startingPoint by 1 
+- `vector<int> path;`
+Declares a vector path to store the sequence of paired nodes during the computation.
+- `long long minCost = totalCost + findMinCost(mask, dist, path);`
+Calls the findMinCost function to calculate the minimum cost of pairing the odd-degree nodes, adding it to the totalCost of edges. The result is stored in minCost.
+- `cout << "Minimum Cost: " << minCost << "\n";`
+Outputs the calculated minimum cost to the console.
 
 ## 3. Knight's Tour
 
