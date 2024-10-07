@@ -170,6 +170,13 @@ In the main function, it handles the input such as:
 
 after reading the inputs, it will call the `solveTSP` function to calculate the cost and the route
 
+### Result
+
+after we run the code, the image below is the output of the code:
+
+![image](https://github.com/user-attachments/assets/269b959f-530f-4471-a8bd-a38669c91466)
+
+
 ## B. Chinese Postman Problem (CPP)
 
 ## C. Knights Tours
