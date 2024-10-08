@@ -84,7 +84,6 @@ This part initializes the Data Structure for this code
             edgeIds[e.u][e.v] = e.id;
             edgeIds[e.v][e.u] = e.id;
         }
-    }
 
 ```
 In this part, the loop iterates over each edge in the `edges` vector. This loop will update the matrix so that it will only choose the path with the cheapest cost for the `adjMatrix`, and it will set the edge ID for both directions.
