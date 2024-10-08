@@ -1,6 +1,6 @@
 # Graph Theory W7 Assignment - Group 1
 
-Members:
+Group 1 Members:
 
 | Name  | NRP |
 | ------------- | ------------- |
@@ -8,6 +8,9 @@ Members:
 | Alfa Radithya Fanany   | 5025231008  |
 | Muhammad Iqbal Shafarel    | 5025231080 |
 | Ali Ridho   | 5025231162|
+
+This repository will give the explanation for several Graph problems such as Travelling Salesman Problem (TSP), Chinese Postman Problem (CPP), and Knight's Tour Problem. The detailed explanations will be explained below, and the related source code is attached in this repository.
+
 
 # Code Explanation
 
