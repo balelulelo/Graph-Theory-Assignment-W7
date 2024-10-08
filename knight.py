@@ -50,7 +50,9 @@ def solve_knight_tour_custom(n, m, start_x, start_y):
     else:
         print("No solution exists")
 
-n, m = 5, 5  
-start_x, start_y = 2, 2  
+n = int(input())
+m = int(input())
+start_x = int(input())
+start_y = int(input())
 
 solve_knight_tour_custom(n, m, start_x, start_y)
