@@ -18,10 +18,11 @@ int solveTSP(int n, int m, const vector<Edge>& edges, int startNode) {
 
     vector<vector<int>> edgeIds(n + 1, vector<int>(n + 1, -1));
     for (const auto& e : edges) {
-        adjMatrix[e.u][e.v] = e.weight;
-        adjMatrix[e.v][e.u] = e.weight;
-        edgeIds[e.u][e.v] = e.id;
-        edgeIds[e.v][e.u] = e.id;
+            if (adjMatrix[e.u][e.v] > e.weight) {
+            adjMatrix[e.u][e.v] = e.weight;
+            adjMatrix[e.v][e.u] = e.weight;
+            edgeIds[e.u][e.v] = e.id;
+            edgeIds[e.v][e.u] = e.id;
     }
 
     vector<bool> visited(n + 1, false);
