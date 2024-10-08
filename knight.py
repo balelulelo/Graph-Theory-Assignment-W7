@@ -1,3 +1,4 @@
+#Ali Ridho 5025231162
 def is_valid(x, y, n, m, visited):
     return 0 <= x < n and 0 <= y < m and not visited[x][y]
 
