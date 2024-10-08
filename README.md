@@ -78,10 +78,12 @@ This part initializes the Data Structure for this code
 
 ```
     for (const auto& e : edges) {
-        adjMatrix[e.u][e.v] = e.weight;
-        adjMatrix[e.v][e.u] = e.weight;
-        edgeIds[e.u][e.v] = e.id;
-        edgeIds[e.v][e.u] = e.id;
+        if (adjMatrix[e.u][e.v] > e.weight) {
+            adjMatrix[e.u][e.v] = e.weight;
+            adjMatrix[e.v][e.u] = e.weight;
+            edgeIds[e.u][e.v] = e.id;
+            edgeIds[e.v][e.u] = e.id;
+        }
     }
 
 ```
