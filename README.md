@@ -518,6 +518,7 @@ this part acts as a main function. It sets the dimension of the board to `5 x 5`
 ### F. Result
 
 after we run the code, the following image is the output result:
+-Once the knight visits all squares, the solve_knight_tour_custom function prints each coordinate from the path, one by one, resulting in the knight’s tour being displayed in the order it was executed.
 
 ![image](https://github.com/user-attachments/assets/741a3b22-e619-454f-85fc-de7cb6b17d56)
 
