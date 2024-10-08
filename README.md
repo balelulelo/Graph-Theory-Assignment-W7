@@ -87,7 +87,7 @@ This part initializes the Data Structure for this code
     }
 
 ```
-In this part, the loop iterates over each edge in the `edges` vector. It will set the weight of both direction in `adjMatrix`, and it will set the edge ID for both directions.
+In this part, the loop iterates over each edge in the `edges` vector. This loop will update the matrix so that it will only choose the path with the cheapest cost for the `adjMatrix`, and it will set the edge ID for both directions.
 
 ### E. TSP Logic
 
